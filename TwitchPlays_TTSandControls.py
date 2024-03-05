@@ -46,7 +46,6 @@ MAX_QUEUE_LENGTH = 20
 MAX_WORKERS = 100 # Maximum number of threads you can process at a time 
 
 language = 'ja'
-played = False
 
 last_time = time.time()
 message_queue = []
