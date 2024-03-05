@@ -8,6 +8,7 @@ import TwitchPlays_Connection
 from TwitchPlays_KeyCodes import *
 from gtts import gTTS
 from playmedia import *
+import vlc
 
 ##################### GAME VARIABLES #####################
 
@@ -74,6 +75,8 @@ def handle_message(message):
         mssg = gTTS(text= msg, lang = language, slow=False)
 
         mssg.save(""+ msg +".mp3")
+
+        vlc.MediaPlayer(""+ msg +".mp3").play()
 
         # os.remove(""+ msg +".mp3")
 
