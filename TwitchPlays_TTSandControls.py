@@ -12,6 +12,7 @@ import vlc
 import time
 import string
 import re
+import obsws_python as obs
 
 ##################### GAME VARIABLES #####################
 
