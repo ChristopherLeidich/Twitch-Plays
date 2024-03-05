@@ -9,6 +9,7 @@ from TwitchPlays_KeyCodes import *
 from gtts import gTTS
 from playmedia import *
 import vlc
+import time
 
 ##################### GAME VARIABLES #####################
 
@@ -41,7 +42,8 @@ MESSAGE_RATE = 0.5
 MAX_QUEUE_LENGTH = 20
 MAX_WORKERS = 100 # Maximum number of threads you can process at a time 
 
-language = 'en'
+language = 'ja'
+played = False
 
 last_time = time.time()
 message_queue = []
@@ -78,7 +80,10 @@ def handle_message(message):
 
         vlc.MediaPlayer(""+ msg +".mp3").play()
 
-        # os.remove(""+ msg +".mp3")
+        time.sleep(len(msg)+1/100.0)
+        
+        os.remove(""+ msg +".mp3")
+            
 
         # Now that you have a chat message, this is where you add your game logic.
         # Use the "HoldKey(KEYCODE)" function to permanently press and hold down a key.
