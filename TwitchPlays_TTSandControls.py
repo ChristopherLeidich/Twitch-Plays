@@ -10,6 +10,8 @@ from gtts import gTTS
 from playmedia import *
 import vlc
 import time
+import string
+import re
 
 ##################### GAME VARIABLES #####################
 
@@ -76,13 +78,15 @@ def handle_message(message):
 
         mssg = gTTS(text= msg, lang = language, slow=False)
 
-        mssg.save(""+ msg +".mp3")
+        cmsg = re.sub(r'[^\w]',' ', msg)
 
-        vlc.MediaPlayer(""+ msg +".mp3").play()
+        mssg.save(""+ cmsg +".mp3")
+
+        vlc.MediaPlayer(""+ cmsg +".mp3").play()
 
         time.sleep(len(msg)+1/100.0)
         
-        os.remove(""+ msg +".mp3")
+        os.remove(""+ cmsg +".mp3")
             
 
         # Now that you have a chat message, this is where you add your game logic.
