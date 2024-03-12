@@ -13,6 +13,8 @@ import time
 import string
 import re
 import obsws_python as obs
+import twitchio
+import pyttsx3
 
 ##################### GAME VARIABLES #####################
 
@@ -52,8 +54,9 @@ message_queue = []
 thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS)
 active_tasks = []
 pyautogui.FAILSAFE = False
-
 ##########################################################
+
+pyttsx3.init()
 
 # Count down before starting, so you have time to load up the game
 countdown = 0
@@ -78,7 +81,7 @@ def handle_message(message):
 
         mssg = gTTS(text= msg, lang = language, slow=False)
 
-        cmsg = re.sub(r'[^\w]',' ', msg)
+        cmsg = re.sub(r'[^\w]','', msg)
 
         mssg.save(""+ cmsg +".mp3")
 
@@ -150,9 +153,6 @@ def handle_message(message):
             
         if msg == "aim left":
             pydirectinput.moveRel(-200, 0, relative=True)
-            
-        if msg == "kill me":
-            HoldAndReleaseKey(LEFT_ALT + F4)
             
 
         ####################################
