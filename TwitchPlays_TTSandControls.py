@@ -76,6 +76,7 @@ def texttospeech(message):
 
     # This is my current realatively Simple Text To Speech Fuction
     # It uses the gtts package as well as the vlc package to play a saved .mp3 file
+    # The texttospeech fucntion runs on a differn thread from the handle_message fuction to prevent a timelag caused by the time.sleep fuction wich is necessary for accurate usage of the os.remove
     # The File-Name is the Message itself without special characters and spaces
     # After the Message was played the System waits for a Time equal to a precentile the Length of the Message+1 
     # After this the .mp3 File in question gets deleted again to prevent cluttering up the Harddrive with many files and to prevent having a Multitude of the Same File
