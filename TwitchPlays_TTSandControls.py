@@ -72,13 +72,9 @@ else:
     t = TwitchPlays_Connection.YouTube()
     t.youtube_connect("YOUTUBE_CHANNEL_ID", YOUTUBE_STREAM_URL)
 
-def handle_message(message):
+def texttospeech(message):
     try:
         msg = message['message'].lower()
-        username = message['username'].lower()
-
-        print(username + ": " + msg)
-
         mssg = gTTS(text= msg, lang = language, slow=False)
 
         cmsg = re.sub(r'[^\w]','', msg)
@@ -90,6 +86,16 @@ def handle_message(message):
         time.sleep(len(msg)+1/100.0)
         
         os.remove(""+ cmsg +".mp3")
+
+    except Exception as e:
+        print("Encountered exception: " + str(e))
+
+def handle_message(message):
+    try:
+        msg = message['message'].lower()
+        username = message['username'].lower()
+
+        print(username + ": " + msg)
             
 
         # Now that you have a chat message, this is where you add your game logic.
@@ -196,5 +202,6 @@ while True:
         for message in messages_to_handle:
             if len(active_tasks) <= MAX_WORKERS:
                 active_tasks.append(thread_pool.submit(handle_message, message))
+                active_tasks.append(thread_pool.submit(texttospeech, message))
             else:
                 print(f'WARNING: active tasks ({len(active_tasks)}) exceeds number of workers ({MAX_WORKERS}). ({len(message_queue)} messages in the queue)')
