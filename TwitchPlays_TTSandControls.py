@@ -73,6 +73,14 @@ else:
     t.youtube_connect("YOUTUBE_CHANNEL_ID", YOUTUBE_STREAM_URL)
 
 def texttospeech(message):
+
+    # This is my current realatively Simple Text To Speech Fuction
+    # It uses the gtts package as well as the vlc package to play a saved .mp3 file
+    # The File-Name is the Message itself without special characters and spaces
+    # After the Message was played the System waits for a Time equal to a precentile the Length of the Message+1 
+    # After this the .mp3 File in question gets deleted again to prevent cluttering up the Harddrive with many files and to prevent having a Multitude of the Same File
+    # This Approach is necessary for using a simplified version of gtts because it doesn't provide any way of Internally playing tts-messages immediately
+
     try:
         msg = message['message'].lower()
         mssg = gTTS(text= msg, lang = language, slow=False)
@@ -96,8 +104,7 @@ def handle_message(message):
         username = message['username'].lower()
 
         print(username + ": " + msg)
-            
-
+        
         # Now that you have a chat message, this is where you add your game logic.
         # Use the "HoldKey(KEYCODE)" function to permanently press and hold down a key.
         # Use the "ReleaseKey(KEYCODE)" function to release a specific keyboard key.
