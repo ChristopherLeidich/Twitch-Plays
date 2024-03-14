@@ -15,6 +15,7 @@ import re
 import obsws_python as obs
 import twitchio
 import pyttsx3
+import obswebsocket
 
 ##################### GAME VARIABLES #####################
 
