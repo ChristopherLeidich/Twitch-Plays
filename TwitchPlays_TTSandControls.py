@@ -16,6 +16,11 @@ import obsws_python as obs
 import twitchio
 import pyttsx3
 import obswebsocket
+import google.generativeai as genai
+try:
+    GOOGLE_API_KEY = "..."
+
+genai.configure(api_key=GOOGLE_API_KEY)
 
 ##################### GAME VARIABLES #####################
 
