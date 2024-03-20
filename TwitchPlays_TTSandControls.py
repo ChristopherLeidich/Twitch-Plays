@@ -17,10 +17,7 @@ import twitchio
 import pyttsx3
 import obswebsocket
 import google.generativeai as genai
-try:
-    GOOGLE_API_KEY = "..."
 
-genai.configure(api_key=GOOGLE_API_KEY)
 
 ##################### GAME VARIABLES #####################
 
@@ -90,6 +87,9 @@ def texttospeech(message):
 
     try:
         msg = message['message'].lower()
+
+        languages = msg.split(' ', 1)[0] # this line is a test to potentially allow for multiple Languages
+
         mssg = gTTS(text= msg, lang = language, slow=False)
 
         cmsg = re.sub(r'[^\w]','', msg)
