@@ -17,12 +17,18 @@ import twitchio
 import pyttsx3
 import obswebsocket
 import google.generativeai as genai
+from elevenlabs.client import ElevenLabs
+from elevenlabs import play, stream, save
 
+
+# client = ElevenLabs(api_key = "c7a34f47a9db0dc855470305fe4ab6e7")
 
 ##################### GAME VARIABLES #####################
 
 # Replace this with your Twitch username. Must be all lowercase.
 TWITCH_CHANNEL = 'akithedev' 
+
+# bot = twitchio.Client(token = ' ', nick = ' ', initial_channels = ['akithedev'])
 
 # If streaming on Youtube, set this to False
 STREAMING_ON_TWITCH = True
@@ -50,7 +56,7 @@ MESSAGE_RATE = 0.5
 MAX_QUEUE_LENGTH = 20
 MAX_WORKERS = 100 # Maximum number of threads you can process at a time 
 
-language = 'ja'
+
 
 last_time = time.time()
 message_queue = []
@@ -76,7 +82,7 @@ else:
     t.youtube_connect("YOUTUBE_CHANNEL_ID", YOUTUBE_STREAM_URL)
 
 def texttospeech(message):
-
+    deflanguage = 'ja'
     # This is my current realatively Simple Text To Speech Fuction
     # It uses the gtts package as well as the vlc package to play a saved .mp3 file
     # The texttospeech fucntion runs on a differn thread from the handle_message fuction to prevent a timelag caused by the time.sleep fuction wich is necessary for accurate usage of the os.remove
@@ -87,10 +93,25 @@ def texttospeech(message):
 
     try:
         msg = message['message'].lower()
+        try:
+            command, language, txtmsg = msg.split(maxsplit=2)
+            if command == "!tts":
+                if language == 'ja':
+                    deflanguage = 'ja'
+                elif language == 'en':
+                    deflanguage = 'en'
+                elif language == 'de':
+                    deflanguage = 'de'
+                elif language == 'fr':
+                    deflanguage = 'fr'
+                else:
+                    deflanguage = 'en'
+                    txtmsg = language + ' ' + txtmsg
+        except Exception:
+            pass
 
-        languages = msg.split(' ', 1)[0] # this line is a test to potentially allow for multiple Languages
 
-        mssg = gTTS(text= msg, lang = language, slow=False)
+        mssg = gTTS(text= txtmsg, lang = deflanguage, slow=False)
 
         cmsg = re.sub(r'[^\w]','', msg)
 
@@ -101,9 +122,10 @@ def texttospeech(message):
         time.sleep(len(msg)+1/100.0)
         
         os.remove(""+ cmsg +".mp3")
-
+        
     except Exception as e:
         print("Encountered exception: " + str(e))
+        pass
 
 def handle_message(message):
     try:
