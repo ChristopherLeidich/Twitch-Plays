@@ -19,6 +19,7 @@ import obswebsocket
 import google.generativeai as genai
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, stream, save
+from flask import Flask, render_template
 
 
 # client = ElevenLabs(api_key = "c7a34f47a9db0dc855470305fe4ab6e7")
@@ -42,6 +43,8 @@ STREAMING_ON_TWITCH = True
 YOUTUBE_STREAM_URL = None
 
 ##################### MESSAGE QUEUE VARIABLES #####################
+
+app = Flask(__name__)
 
 # MESSAGE_RATE controls how fast we process incoming Twitch Chat messages. It's the number of seconds it will take to handle all messages in the queue.
 # This is used because Twitch delivers messages in "batches", rather than one at a time. So we process the messages over MESSAGE_RATE duration, rather than processing the entire batch at once.
@@ -93,9 +96,13 @@ def texttospeech(message):
 
     try:
         msg = message['message'].lower()
-        try:
+
+        space_count = msg.count(' ')
+
+        
+        if space_count > 2:
             command, language, txtmsg = msg.split(maxsplit=2)
-            if command == "!tts":
+            if command == '!tts':
                 if language == 'ja':
                     deflanguage = 'ja'
                 elif language == 'en':
@@ -107,8 +114,17 @@ def texttospeech(message):
                 else:
                     deflanguage = 'en'
                     txtmsg = language + ' ' + txtmsg
-        except Exception:
-            pass
+            else:
+                return
+        elif space_count == 1:
+            command, txtmsg = msg.split(maxsplit = 1)
+            if command == '!tts':
+                deflanguage = 'en'
+            else:
+                return
+        else:
+            return
+
 
 
         mssg = gTTS(text= txtmsg, lang = deflanguage, slow=False)
