@@ -95,7 +95,9 @@ def texttospeech(message):
     # This Approach is necessary for using a simplified version of gtts because it doesn't provide any way of Internally playing tts-messages immediately
 
     try:
+
         msg = message['message'].lower()
+        username = message['username'].lower()
 
         space_count = msg.count(' ')
 
