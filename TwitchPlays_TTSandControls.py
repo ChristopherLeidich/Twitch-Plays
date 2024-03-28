@@ -5,6 +5,7 @@ import os
 import pydirectinput
 import pyautogui
 import TwitchPlays_Connection
+from secret import *
 from TwitchPlays_KeyCodes import *
 from gtts import gTTS
 from playmedia import *
@@ -22,7 +23,7 @@ from elevenlabs import play, stream, save
 from flask import Flask, render_template
 
 
-# client = ElevenLabs(api_key = "")
+client = ElevenLabs(api_key = Elevenlabs_API_KEY)
 
 ##################### GAME VARIABLES #####################
 
