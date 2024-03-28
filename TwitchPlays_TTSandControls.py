@@ -71,7 +71,7 @@ pyautogui.FAILSAFE = False
 pyttsx3.init()
 
 # Count down before starting, so you have time to load up the game
-countdown = 0
+countdown = 10
 while countdown > 0:
     print(countdown)
     countdown -= 1
