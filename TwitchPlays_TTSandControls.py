@@ -22,7 +22,7 @@ from elevenlabs import play, stream, save
 from flask import Flask, render_template
 
 
-# client = ElevenLabs(api_key = "c7a34f47a9db0dc855470305fe4ab6e7")
+# client = ElevenLabs(api_key = "")
 
 ##################### GAME VARIABLES #####################
 
