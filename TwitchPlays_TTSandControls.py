@@ -20,7 +20,7 @@ import obswebsocket
 import google.generativeai as genai
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, stream, save
-from flask import Flask, render_template
+
 
 
 client = ElevenLabs(api_key = Elevenlabs_API_KEY)
@@ -45,7 +45,6 @@ YOUTUBE_STREAM_URL = None
 
 ##################### MESSAGE QUEUE VARIABLES #####################
 
-app = Flask(__name__)
 
 # MESSAGE_RATE controls how fast we process incoming Twitch Chat messages. It's the number of seconds it will take to handle all messages in the queue.
 # This is used because Twitch delivers messages in "batches", rather than one at a time. So we process the messages over MESSAGE_RATE duration, rather than processing the entire batch at once.
@@ -72,7 +71,7 @@ pyautogui.FAILSAFE = False
 pyttsx3.init()
 
 # Count down before starting, so you have time to load up the game
-countdown = 10
+countdown = 0
 while countdown > 0:
     print(countdown)
     countdown -= 1
@@ -132,7 +131,9 @@ def texttospeech(message):
 
         mssg = gTTS(text= txtmsg, lang = deflanguage, slow=False)
 
-        cmsg = re.sub(r'[^\w]','', msg)
+        smsg = re.sub(r'[^\w]','', msg)
+
+        cmsg = smsg[:10]
 
         mssg.save(""+ cmsg +".mp3")
 
