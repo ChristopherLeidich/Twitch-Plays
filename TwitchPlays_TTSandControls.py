@@ -51,7 +51,7 @@ YOUTUBE_STREAM_URL = None
 # A smaller number means we go through the message queue faster, but we will run out of messages faster and activity might "stagnate" while waiting for a new batch. 
 # A higher number means we go through the queue slower, and messages are more evenly spread out, but delay from the viewers' perspective is higher.
 # You can set this to 0 to disable the queue and handle all messages immediately. However, then the wait before another "batch" of messages is more noticeable.
-MESSAGE_RATE = 0.5
+MESSAGE_RATE = 0.2
 # MAX_QUEUE_LENGTH limits the number of commands that will be processed in a given "batch" of messages. 
 # e.g. if you get a batch of 50 messages, you can choose to only process the first 10 of them and ignore the others.
 # This is helpful for games where too many inputs at once can actually hinder the gameplay.
