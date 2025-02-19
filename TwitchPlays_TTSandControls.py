@@ -5,7 +5,7 @@ import os
 import pydirectinput
 import pyautogui
 import TwitchPlays_Connection
-from secret import *
+# from secret import *
 from TwitchPlays_KeyCodes import *
 from gtts import gTTS
 from playmedia import *
@@ -13,7 +13,7 @@ import vlc
 import time
 import string
 import re
-import obsws_python as obs
+# import obsws_python as obs
 import twitchio
 import pyttsx3
 import obswebsocket
@@ -23,7 +23,7 @@ from elevenlabs import play, stream, save
 
 
 
-client = ElevenLabs(api_key = Elevenlabs_API_KEY)
+# client = ElevenLabs(api_key = Elevenlabs_API_KEY)
 
 ##################### GAME VARIABLES #####################
 
@@ -71,7 +71,7 @@ pyautogui.FAILSAFE = False
 pyttsx3.init()
 
 # Count down before starting, so you have time to load up the game
-countdown = 0
+countdown = 5
 while countdown > 0:
     print(countdown)
     countdown -= 1
@@ -133,7 +133,7 @@ def texttospeech(message):
 
         smsg = re.sub(r'[^\w]','', msg)
 
-        cmsg = smsg[:10]
+        cmsg = smsg[:12]
 
         mssg.save(""+ cmsg +".mp3")
 
